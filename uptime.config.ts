@@ -10,13 +10,13 @@ const pageConfig: PageConfig = {
   title: "mengku's Status Page",
   // 头部显示的链接，可以通过 highlight 突出显示
   links: [
-    { link: 'https://github.com/lyc8503', label: 'GitHub' },
+    { link: 'https://github.com/mengkuikun', label: 'GitHub' },
     { link: 'https://250031.xyz/', label: 'Blog' },
-    { link: 'mailto:me@lyc8503.net', label: 'Email Me', highlight: true },
+    { link: 'mailto:mengku625@gmail.com', label: 'Email Me', highlight: true },
   ],
   // 分组显示监控；未列出的监控将隐藏但仍会被监测
   group: {
-    '🌐 Public': ['www', 'blog', 'pan', 'fedi'],
+    '🌐 Public': ['www', 'blog', 'pan', 'pan_backup', 'fedi'],
     '🔐 Private': ['routerssh', 'homelab', 'miscvps'],
   },
   // 维护提示相关设置
@@ -59,11 +59,22 @@ const workerConfig: WorkerConfig = {
     },
     {
       id: 'pan',
-      name: 'My Fileshare',
+      name: 'Clist',
       method: 'GET',
-      target: 'https://pan.lyc8503.net/',
-      tooltip: 'File share portal',
-      statusPageLink: 'https://pan.lyc8503.net/',
+      target: 'https://mengku.qzz.io/',
+      tooltip: 'Clist availability',
+      statusPageLink: 'https://mengku.qzz.io/',
+      expectedCodes: [200],
+      timeout: 15000,
+    },
+    {
+      // 备用链接监控：主链接不可用时供用户访问
+      id: 'pan_backup',
+      name: 'Clist Backup',
+      method: 'GET',
+      target: 'https://clist.728323532.workers.dev/',
+      tooltip: 'Clist 备用访问链路',
+      statusPageLink: 'https://clist.728323532.workers.dev/',
       expectedCodes: [200],
       timeout: 15000,
     },
