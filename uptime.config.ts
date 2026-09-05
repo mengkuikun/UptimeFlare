@@ -17,7 +17,7 @@ const pageConfig: PageConfig = {
   // 分组显示监控；未列出的监控将隐藏但仍会被监测
   group: {
     '🌐 Public': ['www', 'blog', 'pan', 'pan_backup', 'libretv'],
-    '🔐 Private': ['routerssh', 'homelab', 'miscvps'],
+    '🔐 Private': ['sun_vps'],
   },
   // 维护提示相关设置
   maintenances: {
@@ -89,29 +89,13 @@ const workerConfig: WorkerConfig = {
       timeout: 10000,
     },
     {
-      id: 'routerssh',
-      name: 'Router SSH',
+      id: 'sun_vps',
+      name: '孙-VPS',
       // TCP 监控需将 method 设为 TCP_PING
       method: 'TCP_PING',
       // TCP 监控 target 需为 host:port
-      target: 'router.example.com:22',
-      tooltip: 'Edge router SSH (replace target)',
-      timeout: 5000,
-    },
-    {
-      id: 'homelab',
-      name: 'HomeLab',
-      method: 'TCP_PING',
-      target: 'homelab.example.com:22',
-      tooltip: 'HomeLab SSH (replace target)',
-      timeout: 7000,
-    },
-    {
-      id: 'miscvps',
-      name: 'Misc VPS',
-      method: 'TCP_PING',
-      target: 'vps.example.com:22',
-      tooltip: 'Misc VPS SSH (replace target)',
+      target: '118.31.33.187:22',
+      tooltip: '阿里云 VPS SSH 端口连通性',
       timeout: 7000,
     },
   ],
