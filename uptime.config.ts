@@ -127,65 +127,7 @@ const workerConfig: WorkerConfig = {
 // 同时，相关的故障通知会被跳过（如有）
 // 如果不需要该功能，可以保持为空
 
-const maintenances: MaintenanceConfig[] = [
-  {
-    // 影响的监控 ID，可选
-    monitors: ['fedi'],
-    // 维护说明，将显示在状态页
-    body: 'Migrating Fediverse from Azure to HomeLab',
-    // 维护开始时间，UNIX 时间戳或 ISO8601
-    start: '2025-06-07T02:00:00.000+08:00',
-    // 维护结束时间，未指定则视为进行中
-    end: '2025-06-07T03:15:00.000+08:00',
-  },
-  {
-    // 未指定时默认标题为“Scheduled Maintenance”
-    title: 'Blog & personal website loading timeout',
-    monitors: ['www', 'blog', 'pan'],
-    body:
-      'Caused by an upstream Cloudflare outage: https://blog.cloudflare.com/cloudflare-service-outage-june-12-2025/. During this period, my homepage, blog, file share, and this status page are unable to load for most users.',
-    start: '2025-06-12T02:00:00.000+08:00',
-    end: '2025-06-12T04:00:00.000+08:00',
-  },
-  {
-    title: 'Fediverse is unavailable',
-    monitors: ['fedi'],
-    body:
-      "Due to an abnormal increase in HomeLab's international Internet connections, proxy instability caused Fediverse to return 530 or 502 errors. The program causing the abnormality has been fixed. International network connectivity still needs further testing.",
-    start: '2025-06-14T02:00:00.000+08:00',
-    end: '2025-06-14T09:00:00.000+08:00',
-  },
-  {
-    title: '*.lyc8503.net returns HTTP 403 for automated programs',
-    monitors: ['www', 'blog', 'pan', 'fedi'],
-    body:
-      'Due to improper WAF rule configuration, all websites under the lyc8503.net domain will return a 403 error (Cloudflare captcha) to all automated programs. Real users using browsers are not affected. The modification has been rolled back.',
-    start: '2025-06-15T01:05:00.000+08:00',
-    end: '2025-06-15T01:17:00.000+08:00',
-  },
-  {
-    title: 'Fileshare returning internal server error',
-    monitors: ['pan'],
-    body: 'Caused by upstream Microsoft 365 OneDrive outage',
-    start: '2025-09-09T02:56:00.000+08:00',
-    end: '2025-09-09T07:43:00.000+08:00',
-  },
-  {
-    title: 'HomeLab downtime',
-    monitors: ['homelab'],
-    body: 'Replacing broken B460m motherboard for HomeLab',
-    start: '2025-10-24T21:33:00.000+08:00',
-    end: '2025-10-24T23:28:00.000+08:00',
-  },
-  {
-    title: '*.lyc8503.net returns HTTP 500 due to Cloudflare internal errors',
-    monitors: ['www', 'blog', 'pan'],
-    body:
-      'Cloudflare went down, but this status page went down too... So the incident was not logged. We need to figure out how to improve this in the future.',
-    start: '2025-11-18T19:43:00.000+08:00',
-    end: '2025-11-18T22:42:00.000+08:00',
-  },
-]
+const maintenances: MaintenanceConfig[] = []
 
 // 不要编辑这一行
 export { maintenances, pageConfig, workerConfig }
