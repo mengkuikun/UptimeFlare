@@ -86,6 +86,7 @@ const workerConfig: WorkerConfig = {
       tooltip: 'LibreTV 免费在线视频平台',
       statusPageLink: 'https://tv.mengku.shop/',
       expectedCodes: [200],
+      responseKeyword: 'LibreTV',
       timeout: 10000,
     },
     {

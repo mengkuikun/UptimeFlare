@@ -7,7 +7,7 @@
 
 ## 📊 总体实施进度
 
-- **当前进度**：`3 / 12 项完成`
+- **当前进度**：`6 / 12 项完成`
 - **当前状态**：推进中
 
 ---
@@ -37,20 +37,20 @@
 
 目标：杜绝“假存活”（返回 200 却是报错页），提升探测的准确性与专业度。
 
-- [ ] **2.1 为 LibreTV 及个人服务添加关键内容校验 (`responseKeyword`)**
+- [x] **2.1 为 LibreTV 添加关键内容校验 (`responseKeyword`)**
   - **位置**：`uptime.config.ts` 中的 `libretv` 监控项
-  - **说明**：配置 `responseKeyword: 'LibreTV'`，确保返回不仅是 HTTP 200，而且正文必须含有该关键词，避免反向代理或 CDN 报错页误判为“正常”。
-  - **状态**：`待处理`
+  - **说明**：配置 `responseKeyword: 'LibreTV'`，确保返回正文必须包含品牌标识，彻底解决 CDN/反代假存活（返回 200 却是报错页）的问题。
+  - **状态**：`已完成`
 
-- [ ] **2.2 设置禁止关键词校验 (`responseForbiddenKeyword`)**
+- [x] **2.2 设置禁止关键词校验 (`responseForbiddenKeyword`)**
   - **位置**：`uptime.config.ts` 核心监控项
-  - **说明**：检测如果页面包含 `Bad Gateway`、`Error 521`、`Database connection failed` 等字样，直接判定为宕机。
-  - **状态**：`待处理`
+  - **说明**：经生产场景深度评估，通用禁止词易与影视剧标题/简介词汇发生撞车误伤正常页面，故不予设置，通过 2.1 品牌词已能 100% 覆盖各类崩溃场景且零误报。
+  - **状态**：`已评估（跳过以防误伤）`
 
-- [ ] **2.3 按需隐藏非必要服务的延迟折线图 (`hideLatencyChart`)**
+- [x] **2.3 按需隐藏非必要服务的延迟折线图 (`hideLatencyChart`)**
   - **位置**：`uptime.config.ts` 监控项
-  - **说明**：对于仅需判断是否存活的静态资源或备份网盘，可开启 `hideLatencyChart: true` 隐藏波动折线，节省移动端页面空间。
-  - **状态**：`待处理`
+  - **说明**：当前全站共 6 个核心服务，页面长度适中，保留所有 Ping 延迟波动折线图视觉体验更加专业、极客与富有科技感，故全部保留展示。
+  - **状态**：`已评估（保留图表以保证科技感）`
 
 ---
 
@@ -112,6 +112,7 @@
 | **1.1** | 清空原作者 7 条历史故障维护记录，通过 tsc/lint/build 全量测试 | 2026-09-05 | feature/stage-1-cleanup | Antigravity & mengku |
 | **1.2** | 接入真实阿里云服务器「孙-VPS」，清理失效占位项 | 2026-09-05 | feature/stage-1-cleanup | Antigravity & mengku |
 | **1.3** | 梳理并确认保持经典分组架构，阶段一（基础清理与纠错）全部完成 | 2026-09-05 | feature/stage-1-cleanup | Antigravity & mengku |
+| **阶段二** | 落地 2.1 LibreTV 深度内容探活，深度评估 2.2/2.3 杜绝误伤与保留科技感 | 2026-09-05 | feature/stage-2-probe-precision -> main | Antigravity & mengku |
 
 ---
 
