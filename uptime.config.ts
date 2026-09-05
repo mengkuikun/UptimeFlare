@@ -101,9 +101,41 @@ const workerConfig: WorkerConfig = {
     },
   ],
   notification: {
-    // 通知消息的时区，默认 Etc/GMT
+    // 1. 通知消息的时区，默认 Etc/GMT，此处设为北京时间
     timeZone: 'Asia/Shanghai',
-    // 如需通知，请在此填写 webhook 设置（参考 uptime.config.full.ts）
+    // 2. 告警防抖等待期（分钟）：连续 3 次探测失败（约 3 分钟）才触发报警，过滤公网短暂网络抖动
+    gracePeriod: 3,
+    // 3. 免告警白名单：开发中的占位服务或未上线服务不触发报警
+    skipNotificationIds: ['www'],
+    // 4. Webhook 告警渠道配置（支持多渠道数组分发）
+    webhook: [
+      // 【渠道一：Telegram Bot】
+      {
+        // Telegram Bot 发送消息接口
+        url: 'https://api.telegram.org/bot8998541445:AAFb7QoJYBWcuA9pVy9bj2mzdK-RWZyFbXg/sendMessage',
+        method: 'POST',
+        payloadType: 'json',
+        payload: {
+          chat_id: 5058000400,
+          text: '$MSG',
+        },
+        timeout: 10000,
+      },
+      // 【渠道二（预留备用）：国内微信推送 (如 PushPlus / AstrBot)，需要时解除下方注释即可】
+      /*
+      {
+        url: 'https://www.pushplus.plus/send',
+        method: 'POST',
+        payloadType: 'json',
+        payload: {
+          token: '<YOUR_PUSHPLUS_TOKEN>',
+          title: 'UptimeFlare 监控告警',
+          content: '$MSG',
+        },
+        timeout: 10000,
+      },
+      */
+    ],
   },
 }
 

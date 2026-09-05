@@ -7,7 +7,7 @@
 
 ## 📊 总体实施进度
 
-- **当前进度**：`6 / 12 项完成`
+- **当前进度**：`9 / 12 项完成` (75%)
 - **当前状态**：推进中
 
 ---
@@ -58,20 +58,20 @@
 
 目标：实现真正的宕机实时报警，随时随地掌握服务运行情况。
 
-- [ ] **3.1 接入 Webhook 告警渠道（Telegram / Bark / 微信 / 飞书）**
+- [x] **3.1 接入 Webhook 告警渠道（Telegram / 国内渠道预留）**
   - **位置**：`uptime.config.ts` 中的 `notification.webhook`
-  - **说明**：当前未配置任何告警通道。选择一个你日常常用的推送渠道（例如 Telegram Bot、iPhone Bark 极简通知、Server酱或办公群机器人），一旦宕机即时收到通知。
-  - **状态**：`待处理`
+  - **说明**：配置支持多通道并发分发的 Webhook 数组，落地 Telegram Bot 告警接口，并预留国内微信推送（如 PushPlus / AstrBot）代码模板。
+  - **状态**：`已完成`
 
-- [ ] **3.2 配置告警防抖等待期 (`gracePeriod`)**
+- [x] **3.2 配置告警防抖等待期 (`gracePeriod`)**
   - **位置**：`uptime.config.ts` 中的 `notification.gracePeriod`
-  - **说明**：设置 `gracePeriod: 3`（分钟），连续探测失败 3 次以上才真正发警报，避免公网瞬时网络抖动引起的误报。
-  - **状态**：`待处理`
+  - **说明**：设置 `gracePeriod: 3`（分钟），连续探测失败 3 次以上才真正触发告警，有效消除公网偶发丢包与瞬间网络抖动造成的虚假告警。
+  - **状态**：`已完成`
 
-- [ ] **3.3 配置免告警白名单 (`skipNotificationIds`)**
+- [x] **3.3 配置免告警白名单 (`skipNotificationIds`)**
   - **位置**：`uptime.config.ts` 中的 `notification.skipNotificationIds`
-  - **说明**：将正在开发中的占位项（如 `www`）或备用链路加入免告警列表，避免干扰日常使用。
-  - **状态**：`待处理`
+  - **说明**：将正在开发中的占位服务（如 `www`）加入免告警列表，避免未上线服务持续报故障干扰日常。
+  - **状态**：`已完成`
 
 ---
 
@@ -155,5 +155,33 @@
   start: '2026-09-06T02:00:00.000+08:00', // 开始时间
   end: '2026-09-06T02:30:00.000+08:00',   // 结束时间（到了会自动恢复）
   color: 'yellow',                         // 横幅颜色：yellow / blue / gray
+}
+```
+
+### 4. 告警渠道速查模板（Telegram / 国内微信）
+```typescript
+// 1. Telegram Bot
+{
+  url: 'https://api.telegram.org/bot<BOT_TOKEN>/sendMessage',
+  method: 'POST',
+  payloadType: 'json',
+  payload: {
+    chat_id: '<CHAT_ID>',
+    text: '$MSG',
+  },
+  timeout: 10000,
+}
+
+// 2. 微信推送 (PushPlus)
+{
+  url: 'https://www.pushplus.plus/send',
+  method: 'POST',
+  payloadType: 'json',
+  payload: {
+    token: '<PUSHPLUS_TOKEN>',
+    title: 'UptimeFlare 监控告警',
+    content: '$MSG',
+  },
+  timeout: 10000,
 }
 ```
