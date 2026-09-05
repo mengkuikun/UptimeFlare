@@ -111,3 +111,47 @@
 | :--- | :--- | :--- | :--- | :--- |
 | **1.1** | 清空原作者 7 条历史故障维护记录，通过 tsc/lint/build 全量测试 | 2026-09-05 | feature/stage-1-cleanup | Antigravity & mengku |
 | **1.2** | 接入真实阿里云服务器「孙-VPS」，清理失效占位项 | 2026-09-05 | feature/stage-1-cleanup | Antigravity & mengku |
+
+---
+
+## 📚 附录：监控项配置模板速查（方便未来扩展）
+
+未来如果你购买了新服务器、组装了家庭软路由/NAS、或上线了新网站，可直接复制以下模板粘贴到 `uptime.config.ts` 的 `monitors: [...]` 列表中：
+
+### 1. TCP 端口探针模板（服务器 SSH、软路由、NAS 等）
+```typescript
+{
+  id: 'my_new_server',               // 唯一英文 ID，不要与其它重复
+  name: '我的新服务器',               // 状态页显示的名字
+  method: 'TCP_PING',                // TCP 端口探针协议
+  target: '1.2.3.4:22',              // 填入真实的 公网IP:端口 或 域名:端口
+  tooltip: 'SSH 远程管理端口探针',    // 悬浮提示文案
+  statusPageLink: 'https://...',     // (可选) 点击跳转地址，不需要可省略
+  timeout: 5000,                     // 超时时间(毫秒)，默认 5000~10000
+}
+```
+
+### 2. HTTP/HTTPS 网页探针模板（新网站、在线服务、API 接口）
+```typescript
+{
+  id: 'my_new_website',              // 唯一英文 ID
+  name: '我的新网站',                 // 状态页展示名称
+  method: 'GET',                     // HTTP 请求方法
+  target: 'https://example.com/',    // 监控的目标网址
+  tooltip: '网站可用性探测',          // 悬浮提示文案
+  statusPageLink: 'https://example.com/', // 点击跳转链接
+  expectedCodes: [200],              // 期望返回的状态码（200 表示正常）
+  timeout: 10000,                    // 超时时间（10秒）
+}
+```
+
+### 3. 计划维护公告模板（网站升级停机时使用）
+```typescript
+{
+  title: '计划升级维护公告',
+  body: '今晚进行系统维护升级，预计耗时 30 分钟。',
+  start: '2026-09-06T02:00:00.000+08:00', // 开始时间
+  end: '2026-09-06T02:30:00.000+08:00',   // 结束时间（到了会自动恢复）
+  color: 'yellow',                         // 横幅颜色：yellow / blue / gray
+}
+```
