@@ -16,7 +16,7 @@ const pageConfig: PageConfig = {
   ],
   // 分组显示监控；未列出的监控将隐藏但仍会被监测
   group: {
-    '🌐 Public': ['www', 'blog', 'pan', 'pan_backup', 'fedi'],
+    '🌐 Public': ['www', 'blog', 'pan', 'pan_backup', 'libretv'],
     '🔐 Private': ['routerssh', 'homelab', 'miscvps'],
   },
   // 维护提示相关设置
@@ -79,14 +79,14 @@ const workerConfig: WorkerConfig = {
       timeout: 15000,
     },
     {
-      id: 'fedi',
-      name: 'Fediverse',
+      id: 'libretv',
+      name: 'LibreTV',
       method: 'GET',
-      target: 'https://nya.one/@lyc8503',
-      tooltip: 'Fediverse profile reachability',
-      statusPageLink: 'https://nya.one/@lyc8503',
+      target: 'https://tv.mengku.shop/',
+      tooltip: 'LibreTV 免费在线视频平台',
+      statusPageLink: 'https://tv.mengku.shop/',
       expectedCodes: [200],
-      timeout: 15000,
+      timeout: 10000,
     },
     {
       id: 'routerssh',
