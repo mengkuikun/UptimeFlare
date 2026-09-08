@@ -16,7 +16,7 @@ const pageConfig: PageConfig = {
   ],
   // 分组显示监控；未列出的监控将隐藏但仍会被监测
   group: {
-    '🌐 Public': ['www', 'blog', 'pan', 'pan_backup', 'libretv'],
+    '🌐 Public': ['www', 'blog', 'pan', 'sink', 'libretv'],
     '🔐 Private': ['sun_vps'],
   },
   // 维护提示相关设置
@@ -68,15 +68,14 @@ const workerConfig: WorkerConfig = {
       timeout: 15000,
     },
     {
-      // 备用链接监控：主链接不可用时供用户访问
-      id: 'pan_backup',
-      name: 'Clist Backup',
+      id: 'sink',
+      name: 'Sink 短链服务',
       method: 'GET',
-      target: 'https://clist.728323532.workers.dev/',
-      tooltip: 'Clist 备用访问链路',
-      statusPageLink: 'https://clist.728323532.workers.dev/',
+      target: 'https://s.mengku.shop/',
+      tooltip: 'Sink 现代短链接转发系统',
+      statusPageLink: 'https://s.mengku.shop/',
       expectedCodes: [200],
-      timeout: 15000,
+      timeout: 10000,
     },
     {
       id: 'libretv',
