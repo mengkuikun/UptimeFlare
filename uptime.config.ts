@@ -11,7 +11,7 @@ const pageConfig: PageConfig = {
   // 头部显示的链接，可以通过 highlight 突出显示
   links: [
     { link: 'https://github.com/mengkuikun', label: 'GitHub' },
-    { link: 'https://250031.xyz/', label: 'Blog' },
+    { link: 'https://blog.mengku.shop/', label: 'Blog' },
     { link: 'mailto:mengku625@gmail.com', label: 'Email Me', highlight: true },
   ],
   // 分组显示监控；未列出的监控将隐藏但仍会被监测
@@ -51,9 +51,9 @@ const workerConfig: WorkerConfig = {
       id: 'blog',
       name: 'My Blog',
       method: 'GET',
-      target: 'https://250031.xyz/',
+      target: 'https://blog.mengku.shop/',
       tooltip: 'Blog availability',
-      statusPageLink: 'https://250031.xyz/',
+      statusPageLink: 'https://blog.mengku.shop/',
       expectedCodes: [200],
       timeout: 10000,
     },
