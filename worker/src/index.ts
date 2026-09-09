@@ -24,14 +24,6 @@ const Worker = {
     let statusChanged = false
     const currentTimeSecond = Math.round(Date.now() / 1000)
 
-    // 一次性精准清理：抹除旧域名 (250031.xyz) 遗留的 blog 历史宕机脏数据，让新域名从 100% 全绿开始
-    if (!(state.data as any)._blogResetDone) {
-      delete state.data.incident['blog']
-      delete state.data.latency['blog']
-      ;(state.data as any)._blogResetDone = true
-      statusChanged = true
-    }
-
     // Parallel check multiple monitors
     // Max concurrent connection is 6 limited by Cloudflare Workers, we use 5 here to be safe
     type CheckResult = { id: string; location: string; status: { ping: number; up: boolean; err: string } }
